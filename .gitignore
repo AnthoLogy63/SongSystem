@@ -1,0 +1,33 @@
+# Ejecutables
+*.exe
+
+# Archivos objeto
+*.o
+*.obj
+
+# Archivos de dependencias
+*.d
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Archivos de compilador/linker
+*.out
+*.a
+*.so
+*.dll
+
+# VSCode settings
+.vscode/
+
+# Archivos específicos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de respaldo
+*~
+*.swp
+
+# CSV y otros datos que no quieras subir (opcional)
+ratings.csv
