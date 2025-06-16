@@ -2,7 +2,9 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "ExtendedBPlusTree.h"
+#include "../include/ExtendedBPlusTree.h"
+#include "../include/SongRating.h"
+
 
 using namespace std;
 

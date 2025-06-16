@@ -10,7 +10,7 @@ class ExtendedBPlusTreeNode {
 public:
     SongStats songs[SONG_ORDER - 1];
     ExtendedBPlusTreeNode* children[SONG_ORDER];
-    ExtendedBPlusTreeNode* next; // para hojas
+    ExtendedBPlusTreeNode* next;
     int keyCount;
     bool isLeaf;
 
