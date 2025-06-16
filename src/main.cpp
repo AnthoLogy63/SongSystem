@@ -16,54 +16,59 @@ int main() {
 
     int opcion;
     do {
-        cout << "\n========= MENÚ PRINCIPAL =========\n";
+        cout << "\n========= MENU PRINCIPAL =========\n";
         cout << "1. Top N canciones (promedio bayesiano)\n";
         cout << "2. Peores N canciones (promedio bayesiano)\n";
         cout << "3. Mostrar usuarios similares\n";
         cout << "4. Recomendaciones para un usuario\n";
         cout << "0. Salir\n";
-        cout << "Seleccione una opción: ";
+        cout << "Seleccione una opcion: ";
         cin >> opcion;
 
         if (opcion == 1) {
             int n;
-            cout << "¿Cuántas canciones deseas ver?: ";
+            cout << "Cuantas canciones deseas ver?: ";
             cin >> n;
             vector<SongStats> top = arbolCanciones.getTopNSongsBayesian(n);
             for (const auto& s : top) {
-                cout << "🎵 Canción " << s.songId 
+                cout << "🎵 Cancion " << s.songId 
                      << " | Bayesiano: " << s.bayesianAverage 
                      << " | Promedio: " << s.averageRating 
                      << " | Votos: " << s.ratingCount << "\n";
             }
         } else if (opcion == 2) {
             int n;
-            cout << "¿Cuántas canciones peores deseas ver?: ";
+            cout << "Cuantas canciones peores deseas ver?: ";
             cin >> n;
             vector<SongStats> bottom = arbolCanciones.getBottomNSongsBayesian(n);
             for (const auto& s : bottom) {
-                cout << "🔻 Canción " << s.songId 
+                cout << "🔻 Cancion " << s.songId 
                      << " | Bayesiano: " << s.bayesianAverage 
                      << " | Promedio: " << s.averageRating 
                      << " | Votos: " << s.ratingCount << "\n";
             }
         } else if (opcion == 3) {
-            int id;
+            int id, umbral;
             cout << "Ingrese ID del usuario: ";
             cin >> id;
-            mostrarUsuariosSimilares(arbolUsuarios, id);
+            cout << "Ingrese el umbral de vecinos a considerar: ";
+            cin >> umbral;
+            mostrarUsuariosSimilares(arbolUsuarios, id, umbral);
         } else if (opcion == 4) {
-            int id;
+            int id, umbral;
             cout << "Ingrese ID del usuario: ";
             cin >> id;
-            recomendarCanciones(arbolUsuarios, id);
+            cout << "Ingrese el umbral de vecinos a considerar: ";
+            cin >> umbral;
+            recomendarCanciones(arbolUsuarios, id, umbral);
         } else if (opcion == 0) {
             cout << "Saliendo del sistema...\n";
         } else {
-            cout << "❌ Opción no válida.\n";
+            cout << "❌ Opcion no valida.\n";
         }
 
     } while (opcion != 0);
 
     return 0;
 }
+

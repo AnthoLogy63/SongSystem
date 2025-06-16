@@ -8,8 +8,11 @@ struct SongStats {
     double averageRating = 0;
     double bayesianAverage = 0;
 
-    SongStats() {}
-    SongStats(int id) : songId(id) {}
+    SongStats() = default;
+
+    SongStats(int id)
+        : songId(id), totalRating(0.0), ratingCount(0),
+          averageRating(0.0), bayesianAverage(0.0) {}
 
     void addRating(double rating) {
         totalRating += rating;
@@ -18,7 +21,12 @@ struct SongStats {
     }
 
     void calculateBayesianAverage(double globalAvg, int confidence) {
-        bayesianAverage = (ratingCount * averageRating + confidence * globalAvg) / (ratingCount + confidence);
+        if (ratingCount > 0) {
+            bayesianAverage = (ratingCount * averageRating + confidence * globalAvg) /
+                              (ratingCount + confidence);
+        } else {
+            bayesianAverage = globalAvg; // o 0 si prefieres castigar la falta de votos
+        }
     }
 };
 

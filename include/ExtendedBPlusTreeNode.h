@@ -20,7 +20,9 @@ public:
     void traverse();
     ExtendedBPlusTreeNode* search(int songId);
     SongStats* findSong(int songId);
-    void getAllSongs(std::vector<SongStats>& allSongs);
+
+    // ✅ Método corregido
+    void getAllSongs(std::vector<SongStats*>& allSongs);
 
     friend class ExtendedBPlusTree;
 };

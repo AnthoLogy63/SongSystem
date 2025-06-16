@@ -49,16 +49,14 @@ SongStats* ExtendedBPlusTreeNode::findSong(int songId) {
     return children[i]->findSong(songId);
 }
 
-void ExtendedBPlusTreeNode::getAllSongs(std::vector<SongStats>& allSongs) {
+void ExtendedBPlusTreeNode::getAllSongs(std::vector<SongStats*>& allSongs) {
     if (isLeaf) {
-        // En las hojas, agregar todas las canciones
         for (int i = 0; i < keyCount; i++) {
-            if (songs[i].ratingCount > 0) { // Solo canciones con valoraciones
-                allSongs.push_back(songs[i]);
+            if (songs[i].ratingCount > 0) {
+                allSongs.push_back(&songs[i]);  // <--- PASAR DIRECCIÓN REAL
             }
         }
     } else {
-        // En nodos internos, recorrer TODOS los hijos
         for (int i = 0; i <= keyCount; i++) {
             if (children[i] != nullptr) {
                 children[i]->getAllSongs(allSongs);
@@ -66,6 +64,7 @@ void ExtendedBPlusTreeNode::getAllSongs(std::vector<SongStats>& allSongs) {
         }
     }
 }
+
 
 void ExtendedBPlusTreeNode::insertNonFull(const SongStats& song) {
     int i = keyCount - 1;

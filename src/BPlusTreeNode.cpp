@@ -1,8 +1,9 @@
-#include "BPlusTreeNode.h"
+#include "../include/BPlusTreeNode.h"
 
 BPlusTreeNode::BPlusTreeNode(bool leaf) {
     isLeaf = leaf;
     siguiente = nullptr;
+    anterior = nullptr;
 }
 
 void BPlusTreeNode::insertarEnHoja(int persona_id, Valoracion v) {

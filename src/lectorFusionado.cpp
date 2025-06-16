@@ -1,14 +1,12 @@
 #include "../include/lectorFusionado.h"
 #include "../include/SongRating.h"
-#include "../include/UsuarioData.h"
-#include "../include/Valoracion.h"
+#include "../include/UsuarioData.h" // ✅ Ya contiene struct Valoracion
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
 using namespace std;
 
-// Variables auxiliares globales (útiles para análisis posterior si quieres)
 unordered_map<int, unordered_map<int, float>> userSongRatings;
 unordered_map<int, vector<float>> songRatings;
 
@@ -35,11 +33,9 @@ void leerCSVConEstructurasYArbol(const string& ruta, ExtendedBPlusTree& arbolCan
             float puntuacion = stof(puntuacionStr);
 
             if (puntuacion > 0.0f) {
-                // Guardar en estructuras auxiliares
                 userSongRatings[usuario][cancion] = puntuacion;
                 songRatings[cancion].push_back(puntuacion);
 
-                // Insertar o actualizar canción en el árbol B+ extendido
                 SongStats* existente = arbolCanciones.findSong(cancion);
                 if (existente) {
                     existente->addRating(puntuacion);
@@ -49,10 +45,7 @@ void leerCSVConEstructurasYArbol(const string& ruta, ExtendedBPlusTree& arbolCan
                     arbolCanciones.insert(nueva);
                 }
 
-                // Insertar o actualizar usuario en el árbol de usuarios
-                Valoracion v;
-                v.cancion_id = cancion;
-                v.valoracion = puntuacion;
+                Valoracion v{cancion, puntuacion};
 
                 UsuarioData* user = arbolUsuarios.buscar(usuario);
                 if (!user) {
@@ -65,7 +58,5 @@ void leerCSVConEstructurasYArbol(const string& ruta, ExtendedBPlusTree& arbolCan
     }
 
     archivo.close();
-
-    // Calcular promedios bayesianos al final
     arbolCanciones.calculateAllBayesianAverages();
 }
